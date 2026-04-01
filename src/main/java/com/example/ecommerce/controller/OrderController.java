@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+import com.example.ecommerce.dto.ShippingDetailsDTO;
+import jakarta.validation.Valid;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/orders")
@@ -19,9 +22,9 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping("/checkout")
-    public ResponseEntity<Order> placeOrder(@RequestBody Map<String, String> requestValues) {
+    public ResponseEntity<Order> placeOrder(@Valid @RequestBody ShippingDetailsDTO requestValues) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        String shippingDetails = requestValues.get("shippingDetails");
+        String shippingDetails = requestValues.getShippingDetails();
         return ResponseEntity.ok(orderService.placeOrder(username, shippingDetails));
     }
 

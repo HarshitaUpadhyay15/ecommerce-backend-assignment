@@ -75,12 +75,14 @@ public class AuthService {
         if (strRole == null) {
             userRole = Role.ROLE_USER;
         } else {
-            switch (strRole.toLowerCase()) {
-                case "admin":
-                    userRole = Role.ROLE_ADMIN;
-                    break;
-                default:
-                    userRole = Role.ROLE_USER;
+            try {
+                String roleStr = strRole.toUpperCase();
+                if (!roleStr.startsWith("ROLE_")) {
+                    roleStr = "ROLE_" + roleStr;
+                }
+                userRole = Role.valueOf(roleStr);
+            } catch (IllegalArgumentException e) {
+                userRole = Role.ROLE_USER;
             }
         }
         user.setRole(userRole);

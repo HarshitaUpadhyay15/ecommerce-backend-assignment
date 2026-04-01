@@ -17,6 +17,9 @@ public class PaymentService {
     @Value("${stripe.api.key}")
     private String stripeApiKey;
 
+    @Value("${app.currency:usd}")
+    private String currency;
+
     @Autowired
     private OrderService orderService;
 
@@ -32,7 +35,7 @@ public class PaymentService {
 
         PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
                 .setAmount(amount)
-                .setCurrency("usd")
+                .setCurrency(currency)
                 .putMetadata("orderId", orderId.toString())
                 .build();
 
