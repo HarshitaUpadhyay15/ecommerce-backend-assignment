@@ -1,9 +1,16 @@
 package com.example.ecommerce.model;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cart_items")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,14 +27,4 @@ public class CartItem {
     @Column(nullable = false)
     private Integer quantity;
 
-    public CartItem() {}
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Cart getCart() { return cart; }
-    public void setCart(Cart cart) { this.cart = cart; }
-    public Product getProduct() { return product; }
-    public void setProduct(Product product) { this.product = product; }
-    public Integer getQuantity() { return quantity; }
-    public void setQuantity(Integer quantity) { this.quantity = quantity; }
 }
